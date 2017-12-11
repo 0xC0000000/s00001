@@ -1,0 +1,13 @@
+#!/bin/sh
+
+DB_INDEX_FILE_NAME="/tmp/db_index"
+DB_INDEX_STORED_NAME="/root/db_index"
+
+VAL1=`md5sum ${DB_INDEX_FILE_NAME} | awk -F ' ' '{print $1}'`
+VAL2=`md5sum ${DB_INDEX_STORED_NAME} | awk -F ' ' '{print $1}'`
+
+if [ "${VAL1}" = "${VAL2}" ]; then
+   echo 1
+else
+   echo 0
+fi

@@ -1,0 +1,93 @@
+Index: etc/diag.sh
+===================================================================
+--- etc/diag.sh	(revision 41308)
++++ etc/diag.sh	(working copy)
+@@ -39,6 +39,9 @@
+ 	ap136)
+ 		status_led="ap136:green:status"
+ 		;;
++	ap143)
++		status_led="ap143:green:wan"
++		;;
+ 	ap81)
+ 		status_led="ap81:green:status"
+ 		;;
+@@ -197,6 +200,8 @@
+ 		status_led_set_timer 50 50
+ 		;;
+ 	done)
++		status_led_off
++		sleep 3
+ 		status_led_on
+ 		;;
+ 	esac
+Index: etc/uci-defaults/leds
+===================================================================
+--- etc/uci-defaults/leds	(revision 41308)
++++ etc/uci-defaults/leds	(working copy)
+@@ -38,6 +38,9 @@
+ 	ucidef_set_led_wlan "wlan_green" "WLAN_GREEN" "senao:green:wlan" "phy1tpt"
+ 	;;
+ 
++ap143)
++        ucidef_set_led_netdev "wan" "WAN" "ap143:green:wan" "eth0"
++	;;
+ db120)
+ 	ucidef_set_led_usbdev "usb" "USB" "db120:green:usb" "1-1"
+ 	;;
+Index: etc/uci-defaults/network
+===================================================================
+--- etc/uci-defaults/network	(revision 41308)
++++ etc/uci-defaults/network	(working copy)
+@@ -32,6 +32,11 @@
+ 	ucidef_add_switch "eth1" "1" "1"
+ 	ucidef_add_switch_vlan "eth1" "1" "0 1 2 3 4 5"
+ 	;;
++ap143)
++	ucidef_set_interfaces_lan_wan "eth1" "eth0"
++	ucidef_add_switch "eth1" "1" "1"
++	ucidef_add_switch_vlan "eth1" "1" "0 1 2 3 4 5"
++	;;	
+ 
+ dir-825-b1|\
+ tew-673gru)
+Index: lib/ar71xx.sh
+===================================================================
+--- lib/ar71xx.sh	(revision 41308)
++++ lib/ar71xx.sh	(working copy)
+@@ -177,6 +177,10 @@
+ 	*"AP136 reference board")
+ 		name="ap136"
+ 		;;
++	*"AP143 reference board")
++		name="ap143"
++		AR71XX_MODEL="RNRA-9531"
++		;;
+ 	*AP81)
+ 		name="ap81"
+ 		;;
+Index: lib/preinit/05_set_preinit_iface_ar71xx
+===================================================================
+--- lib/preinit/05_set_preinit_iface_ar71xx	(revision 41308)
++++ lib/preinit/05_set_preinit_iface_ar71xx	(working copy)
+@@ -7,7 +7,7 @@
+ . /lib/ar71xx.sh
+ 
+ set_preinit_iface() {
+-	ifname=eth0
++	ifname=eth1
+ }
+ 
+ boot_hook_add preinit_main set_preinit_iface
+Index: lib/upgrade/platform.sh
+===================================================================
+--- lib/upgrade/platform.sh	(revision 41308)
++++ lib/upgrade/platform.sh	(working copy)
+@@ -102,6 +102,7 @@
+ 		;;
+ 	ap81 | \
+ 	ap83 | \
++	ap143 | \
+ 	dir-600-a1 | \
+ 	dir-615-c1 | \
+ 	dir-615-e4 | \

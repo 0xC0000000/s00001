@@ -1,0 +1,7 @@
+#!/bin/sh
+
+RECVD_NUM=`cat /tmp/recv_num`
+DB_NUM=`cat /tmp/inserted_num`
+UPLD_NUM=`cat /tmp/upload_num`
+
+echo Rx: ${RECVD_NUM}, Inserted: ${DB_NUM}, Uploaded: ${UPLD_NUM}

@@ -1,0 +1,10 @@
+src-git packages git://git.openwrt.org/12.09/packages.git
+src-git luci https://github.com/openwrt/luci.git;luci-0.11
+src-git routing https://github.com/openwrt-routing/packages.git;for-12.09.x
+#src-svn phone svn://svn.openwrt.org/openwrt/feeds/phone
+#src-svn efl svn://svn.openwrt.org/openwrt/feeds/efl
+#src-svn xorg svn://svn.openwrt.org/openwrt/feeds/xorg
+#src-svn desktop svn://svn.openwrt.org/openwrt/feeds/desktop
+#src-svn xfce svn://svn.openwrt.org/openwrt/feeds/xfce
+#src-svn lxde svn://svn.openwrt.org/openwrt/feeds/lxde
+#src-link custom /usr/src/openwrt/custom-feed

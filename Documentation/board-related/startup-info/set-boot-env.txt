@@ -1,0 +1,6 @@
+set lf-aa 'tftp 0x80060000 ap143-rootfs.bin&&erase 0x9f050000 +0x630000&&cp.b $fileaddr 0x9f050000 $filesize'
+set lk-aa 'tftp 0x80060000 ap143-kernel.bin&&erase 0x9f680000 +$filesize&&cp.b $fileaddr 0x9f680000 $filesize'
+set bootargs 'console=ttyS0,115200 mtdparts=spi0.0:256k(u-boot)ro,64k(u-boot-env)ro,14528k(rootfs),1472k(kernel),64k(art),16000k@0x50000(firmware)'
+set bootcmd 'bootm 0x9f680000'
+set ipaddr '192.168.1.30'
+set serverip '192.168.1.38'

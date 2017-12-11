@@ -1,0 +1,283 @@
+refer to:
+https://wiki.openwrt.org/doc/recipes/ap_sta
+
+
+root@OpenWrt:/etc/config# cat network
+
+config interface 'loopback'
+        option ifname 'lo'
+        option proto 'static'
+        option ipaddr '127.0.0.1'
+        option netmask '255.0.0.0'
+
+config interface 'lan'
+        option ifname 'eth1'
+        option type 'bridge'
+        option proto 'static'
+        option ipaddr '192.168.2.1'
+        option netmask '255.255.255.0'
+
+config interface 'wan'
+        option ifname 'eth0'
+        option proto 'dhcp'
+
+config interface 'wwan'
+        option proto 'dhcp'
+
+config switch
+        option name 'eth1'
+        option reset '1'
+        option enable_vlan '1'
+
+config switch_vlan
+        option device 'eth1'
+        option vlan '1'
+        option ports '0 1 2 3 4 5'
+
+root@OpenWrt:/etc/config# cat wireless
+config wifi-device  radio0
+        option type     mac80211
+        option channel  11
+        option hwmode   11ng
+        option path     'platform/qca953x_wmac'
+        option htmode   HT20
+        list ht_capab   LDPC
+        list ht_capab   SHORT-GI-20
+        list ht_capab   SHORT-GI-40
+        list ht_capab   TX-STBC
+        list ht_capab   RX-STBC1
+        list ht_capab   DSSS_CCK-40
+        # REMOVE THIS LINE TO ENABLE WIFI:
+        option disabled 0
+
+config wifi-iface
+        option device   radio0
+        option network  lan
+        option mode     ap
+        option ssid     OpenWrt-aa
+        option encryption none
+
+config wifi-iface
+        option device   radio0
+        option network  wwan
+        option mode     sta
+        option ssid     OpenWrt
+        option encryption psk2
+        option key      '87654321'
+
+root@OpenWrt:/etc/config# cat dhcp
+config dnsmasq
+        option domainneeded     1
+        option boguspriv        1
+        option filterwin2k      0  # enable for dial on demand
+        option localise_queries 1
+        option rebind_protection 0  # disable if upstream must serve RFC1918 addresses
+        option rebind_localhost 1  # enable for RBL checking and similar services
+        #list rebind_domain example.lan  # whitelist RFC1918 responses for domains
+        option local    '/lan/'
+        option domain   'lan'
+        option expandhosts      1
+        option nonegcache       0
+        option authoritative    1
+        option readethers       1
+        option leasefile        '/tmp/dhcp.leases'
+        option resolvfile       '/tmp/resolv.conf.auto'
+        #list server            '/mycompany.local/1.2.3.4'
+        #option nonwildcard     1
+        #list interface         br-lan
+        #list notinterface      lo
+        #list bogusnxdomain     '64.94.110.11'
+
+config dhcp lan
+        option interface        lan
+        option start    100
+        option limit    150
+        option leasetime        12h
+
+config dhcp wan
+        option interface        wan
+        option ignore   1
+
+
+
+
+root@OpenWrt:/etc/config# cat firewall
+config defaults
+        option syn_flood        1
+        option input            ACCEPT
+        option output           ACCEPT
+        option forward          REJECT
+# Uncomment this line to disable ipv6 rules
+#       option disable_ipv6     1
+
+config zone
+        option name             lan
+        list   network          'lan'
+        option input            ACCEPT
+        option output           ACCEPT
+        option forward          REJECT
+
+config zone
+        option name             wan
+        list   network          'wan'
+        list   network          'wan6'
+        list   network          'wwan'
+        option input            REJECT
+        option output           ACCEPT
+        option forward          REJECT
+        option masq             1
+        option mtu_fix          1
+
+config forwarding
+        option src              lan
+        option dest             wan
+
+# We need to accept udp packets on port 68,
+# see https://dev.openwrt.org/ticket/4108
+config rule
+        option name             Allow-DHCP-Renew
+        option src              wan
+        option proto            udp
+        option dest_port        68
+        option target           ACCEPT
+        option family           ipv4
+
+# Allow IPv4 ping
+config rule
+        option name             Allow-Ping
+        option src              wan
+        option proto            icmp
+        option icmp_type        echo-request
+        option family           ipv4
+        option target           ACCEPT
+
+# Allow DHCPv6 replies
+# see https://dev.openwrt.org/ticket/10381
+config rule
+        option name             Allow-DHCPv6
+        option src              wan
+        option proto            udp
+        option src_ip           fe80::/10
+        option src_port         547
+        option dest_ip          fe80::/10
+        option dest_port        546
+        option family           ipv6
+        option target           ACCEPT
+
+# Allow essential incoming IPv6 ICMP traffic
+config rule
+        option name             Allow-ICMPv6-Input
+        option src              wan
+        option proto    icmp
+        list icmp_type          echo-request
+        list icmp_type          echo-reply
+        list icmp_type          destination-unreachable
+        list icmp_type          packet-too-big
+        list icmp_type          time-exceeded
+        list icmp_type          bad-header
+        list icmp_type          unknown-header-type
+        list icmp_type          router-solicitation
+        list icmp_type          neighbour-solicitation
+        list icmp_type          router-advertisement
+        list icmp_type          neighbour-advertisement
+        option limit            1000/sec
+        option family           ipv6
+        option target           ACCEPT
+
+# Allow essential forwarded IPv6 ICMP traffic
+config rule
+        option name             Allow-ICMPv6-Forward
+        option src              wan
+        option dest             *
+        option proto            icmp
+        list icmp_type          echo-request
+        list icmp_type          echo-reply
+        list icmp_type          destination-unreachable
+        list icmp_type          packet-too-big
+        list icmp_type          time-exceeded
+        list icmp_type          bad-header
+        list icmp_type          unknown-header-type
+        option limit            1000/sec
+        option family           ipv6
+        option target           ACCEPT
+
+# include a file with users custom iptables rules
+config include
+        option path /etc/firewall.user
+
+
+### EXAMPLE CONFIG SECTIONS
+# do not allow a specific ip to access wan
+#config rule
+#       option src              lan
+#       option src_ip   192.168.45.2
+#       option dest             wan
+#       option proto    tcp
+#       option target   REJECT
+
+# block a specific mac on wan
+#config rule
+#       option dest             wan
+#       option src_mac  00:11:22:33:44:66
+#       option target   REJECT
+
+# block incoming ICMP traffic on a zone
+#config rule
+#       option src              lan
+#       option proto    ICMP
+#       option target   DROP
+
+# port redirect port coming in on wan to lan
+#config redirect
+#       option src                      wan
+#       option src_dport        80
+#       option dest                     lan
+#       option dest_ip          192.168.16.235
+#       option dest_port        80
+#       option proto            tcp
+
+# port redirect of remapped ssh port (22001) on wan
+#config redirect
+#       option src              wan
+#       option src_dport        22001
+#       option dest             lan
+#       option dest_port        22
+#       option proto            tcp
+
+# allow IPsec/ESP and ISAKMP passthrough
+#config rule
+#       option src              wan
+#       option dest             lan
+#       option protocol         esp
+#       option target           ACCEPT
+
+#config rule
+#       option src              wan
+#       option dest             lan
+#       option src_port         500
+#       option dest_port        500
+#       option proto            udp
+#       option target           ACCEPT
+
+### FULL CONFIG SECTIONS
+#config rule
+#       option src              lan
+#       option src_ip   192.168.45.2
+#       option src_mac  00:11:22:33:44:55
+#       option src_port 80
+#       option dest             wan
+#       option dest_ip  194.25.2.129
+#       option dest_port        120
+#       option proto    tcp
+#       option target   REJECT
+
+#config redirect
+#       option src              lan
+#       option src_ip   192.168.45.2
+#       option src_mac  00:11:22:33:44:55
+#       option src_port         1024
+#       option src_dport        80
+#       option dest_ip  194.25.2.129
+#       option dest_port        120
+#       option proto    tcp
+

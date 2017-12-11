@@ -1,0 +1,4 @@
+#!/bin/sh
+
+VERSION=`cat /etc/version`
+echo ${VERSION}

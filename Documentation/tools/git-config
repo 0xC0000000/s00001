@@ -1,0 +1,2 @@
+# support Chinese file name
+git config --global core.quotepath false

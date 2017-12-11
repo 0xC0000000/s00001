@@ -1,0 +1,167 @@
+diff -uNr aaa/arch/mips/ath79/dev-eth.c bbb/arch/mips/ath79/dev-eth.c
+--- aaa/arch/mips/ath79/dev-eth.c	2014-12-10 15:27:55.380548476 +0800
++++ bbb/arch/mips/ath79/dev-eth.c	2014-12-10 10:31:50.183979988 +0800
+@@ -195,7 +195,8 @@
+ 	case ATH79_SOC_AR7241:
+ 	case ATH79_SOC_AR9330:
+ 	case ATH79_SOC_AR9331:
+-	case ATH79_SOC_QCA953x:
++	case ATH79_SOC_QCA9531:
++	case ATH79_SOC_QCA9531_v2:
+ 		mdio_dev = &ath79_mdio1_device;
+ 		mdio_data = &ath79_mdio1_data;
+ 		break;
+@@ -252,7 +253,8 @@
+ 		mdio_data->is_ar934x = 1;
+ 		break;
+ 
+-	case ATH79_SOC_QCA953x:
++	case ATH79_SOC_QCA9531:
++	case ATH79_SOC_QCA9531_v2:
+ 		mdio_data->builtin_switch = 1;
+ 		break;
+ 		
+@@ -546,7 +548,8 @@
+ 	case ATH79_SOC_AR9341:
+ 	case ATH79_SOC_AR9342:
+ 	case ATH79_SOC_AR9344:
+-	case ATH79_SOC_QCA953x:
++	case ATH79_SOC_QCA9531:
++	case ATH79_SOC_QCA9531_v2:
+ 	case ATH79_SOC_QCA9558:
+ 		pll_10 = AR934X_PLL_VAL_10;
+ 		pll_100 = AR934X_PLL_VAL_100;
+@@ -603,7 +606,8 @@
+ 		case ATH79_SOC_AR7241:
+ 		case ATH79_SOC_AR9330:
+ 		case ATH79_SOC_AR9331:
+-		case ATH79_SOC_QCA953x:
++		case ATH79_SOC_QCA9531:
++		case ATH79_SOC_QCA9531_v2:
+ 			pdata->phy_if_mode = PHY_INTERFACE_MODE_MII;
+ 			break;
+ 
+@@ -653,7 +657,8 @@
+ 		case ATH79_SOC_AR7241:
+ 		case ATH79_SOC_AR9330:
+ 		case ATH79_SOC_AR9331:
+-		case ATH79_SOC_QCA953x:
++		case ATH79_SOC_QCA9531:
++		case ATH79_SOC_QCA9531_v2:
+ 			pdata->phy_if_mode = PHY_INTERFACE_MODE_GMII;
+ 			break;
+ 
+@@ -915,7 +920,8 @@
+ 		pdata->has_gbit = 1;
+ 		pdata->is_ar724x = 1;
+ 
+-	case ATH79_SOC_QCA953x:
++	case ATH79_SOC_QCA9531:
++	case ATH79_SOC_QCA9531_v2:
+ 		if (id == 0) {
+ 			pdata->reset_bit = AR933X_RESET_GE0_MAC |
+ 					   AR933X_RESET_GE0_MDIO;
+@@ -992,7 +998,8 @@
+ 		case ATH79_SOC_AR7241:
+ 		case ATH79_SOC_AR9330:
+ 		case ATH79_SOC_AR9331:
+-		case ATH79_SOC_QCA953x:
++		case ATH79_SOC_QCA9531:
++		case ATH79_SOC_QCA9531_v2:
+ 			pdata->mii_bus_dev = &ath79_mdio1_device.dev;
+ 			break;
+ 
+diff -uNr aaa/arch/mips/ath79/early_printk.c bbb/arch/mips/ath79/early_printk.c
+--- aaa/arch/mips/ath79/early_printk.c	2014-12-10 15:27:55.380548476 +0800
++++ bbb/arch/mips/ath79/early_printk.c	2014-12-10 10:31:50.499979998 +0800
+@@ -114,7 +114,8 @@
+ 	case REV_ID_MAJOR_AR9341:
+ 	case REV_ID_MAJOR_AR9342:
+ 	case REV_ID_MAJOR_AR9344:
+-	case REV_ID_MAJOR_QCA953x:
++	case REV_ID_MAJOR_QCA9531:
++	case REV_ID_MAJOR_QCA9531_V2:
+ 	case REV_ID_MAJOR_QCA9558:
+ 		_prom_putchar = prom_putchar_ar71xx;
+ 		break;
+diff -uNr aaa/arch/mips/ath79/setup.c bbb/arch/mips/ath79/setup.c
+--- aaa/arch/mips/ath79/setup.c	2014-12-10 15:27:55.380548476 +0800
++++ bbb/arch/mips/ath79/setup.c	2014-12-10 10:31:50.143979987 +0800
+@@ -164,12 +164,18 @@
+ 		rev = id & AR934X_REV_ID_REVISION_MASK;
+ 		break;
+ 
+-	case REV_ID_MAJOR_QCA953x:
+-		ath79_soc = ATH79_SOC_QCA953x;
+-		chip = "953x";
++	case REV_ID_MAJOR_QCA9531:
++		ath79_soc = ATH79_SOC_QCA9531;
++		chip = "9531";
+ 		rev = id & QCA953X_REV_ID_REVISION_MASK;
+ 		break;
+ 
++	case REV_ID_MAJOR_QCA9531_V2:
++		ath79_soc = ATH79_SOC_QCA9531_v2;
++		chip = "9531";
++		rev = 2;
++		break;
++
+ 	case REV_ID_MAJOR_QCA9558:
+ 		ath79_soc = ATH79_SOC_QCA9558;
+ 		chip = "9558";
+diff -uNr aaa/arch/mips/include/asm/mach-ath79/ar71xx_regs.h bbb/arch/mips/include/asm/mach-ath79/ar71xx_regs.h
+--- aaa/arch/mips/include/asm/mach-ath79/ar71xx_regs.h	2014-12-10 15:27:55.760548489 +0800
++++ bbb/arch/mips/include/asm/mach-ath79/ar71xx_regs.h	2014-12-10 10:31:51.431980028 +0800
+@@ -623,7 +623,8 @@
+ #define REV_ID_MAJOR_AR9341		0x0120
+ #define REV_ID_MAJOR_AR9342		0x1120
+ #define REV_ID_MAJOR_AR9344		0x2120
+-#define REV_ID_MAJOR_QCA953x		0x0140
++#define REV_ID_MAJOR_QCA9531	0x0140
++#define REV_ID_MAJOR_QCA9531_V2		0x0160  
+ #define REV_ID_MAJOR_QCA9558		0x1130
+ 
+ #define AR71XX_REV_ID_MINOR_MASK	0x3
+diff -uNr aaa/arch/mips/include/asm/mach-ath79/ath79.h bbb/arch/mips/include/asm/mach-ath79/ath79.h
+--- aaa/arch/mips/include/asm/mach-ath79/ath79.h	2014-12-10 15:27:55.760548489 +0800
++++ bbb/arch/mips/include/asm/mach-ath79/ath79.h	2014-12-10 10:31:51.439980028 +0800
+@@ -33,7 +33,8 @@
+ 	ATH79_SOC_AR9342,
+ 	ATH79_SOC_AR9344,
+ 	ATH79_SOC_QCA9533,
+-	ATH79_SOC_QCA953x,
++	ATH79_SOC_QCA9531,
++	ATH79_SOC_QCA9531_v2,
+ 	ATH79_SOC_QCA9558,
+ };
+ 
+@@ -101,14 +102,27 @@
+ 	return soc_is_ar9341() || soc_is_ar9342() || soc_is_ar9344();
+ }
+ 
+-static inline int soc_is_qca9533(void)
++/*static inline int soc_is_qca9533(void)
+ {
+ 	return ath79_soc == ATH79_SOC_QCA953x;
++}*/
++
++static inline int soc_is_qca9531(void)
++{
++	return ath79_soc == ATH79_SOC_QCA9531;
++}
++
++static inline int soc_is_qca9531_v2(void)
++{
++	return ath79_soc == ATH79_SOC_QCA9531_v2;
+ }
+ 
+ static inline int soc_is_qca953x(void)
+ {
+-	return ath79_soc == ATH79_SOC_QCA953x;;
++	if(ath79_soc ==ATH79_SOC_QCA9531 ||ath79_soc == ATH79_SOC_QCA9531_v2)
++		return 1;
++	else
++		return 0;
+ }
+ static inline int soc_is_qca9558(void)
+ {

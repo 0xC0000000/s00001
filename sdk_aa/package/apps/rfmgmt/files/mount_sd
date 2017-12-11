@@ -1,0 +1,19 @@
+#!/bin/sh
+
+PATH="/storage"
+PATH_DEV="/dev/sda1"
+OLDDB_DIR="/storage/histo"
+LOGS_DIR="/storage/logs"
+
+/bin/sleep 1
+# if block file exist
+if [ -b "$PATH_DEV" ]; then
+    [ ! -d "$PATH" ] && /bin/mkdir -p $PATH
+    /bin/mount -t vfat $PATH_DEV $PATH
+    [ ! -d "$OLDDB_DIR" ] && /bin/mkdir -p $OLDDB_DIR
+    [ ! -d "$LOGS_DIR" ] && /bin/mkdir -p $LOGS_DIR
+else
+    echo "no sd card, reboot"
+    /sbin/reboot
+fi
+

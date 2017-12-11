@@ -1,0 +1,22 @@
+#!/bin/sh
+
+MOUNT_DIR="/tmp/hardinfo"
+PRODUCT_INFO_FILE="$MOUNT_DIR"/.product_info
+
+if [ ! -d "$MOUNT_DIR" ];
+then
+    mkdir -p $MOUNT_DIR
+    mount -t jffs2 /dev/mtdblock5 $MOUNT_DIR
+fi
+
+MAC=$1
+echo "$MAC" | grep "^\([A-Fa-f0-9]\{2\}:\)\{5\}[A-Fa-f0-9]\{2\}$" >/dev/null
+
+if [ $? = 0 ]; then
+    echo "$MAC" > $PRODUCT_INFO_FILE
+else
+    echo "$MAC"  " - invalid mac!!!"
+    echo ""
+    echo "Usage: setmac [mac]"
+fi
+

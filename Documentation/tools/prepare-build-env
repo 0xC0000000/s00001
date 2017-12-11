@@ -1,0 +1,15 @@
+# install ubuntu12.04
+
+# update apt sources
+sudo gedit /etc/apt/sources.list
+
+deb http://mirrors.163.com/ubuntu/ precise main restricted
+deb-src http://mirrors.163.com/ubuntu/ precise main restricted
+deb http://mirrors.163.com/ubuntu/ precise-updates main restricted
+deb-src http://mirrors.163.com/ubuntu/ precise-updates main restricted
+deb http://mirrors.163.com/ubuntu/ precise universe
+deb-src http://mirrors.163.com/ubuntu/ precise universe
+
+# prepare build env
+
+sudo apt-get install gcc g++ binutils patch bzip2 flex bison make autoconf gettext texinfo unzip sharutils subversion ncurses-term zlib1g-dev gawk asciidoc git-core build-essential libssl-dev mercurial libncurses5-dev

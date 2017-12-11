@@ -1,0 +1,620 @@
+U-Boot 1.1.4--LSDK-10.1.478 (Oct 13 2014 - 16:37:59)
+
+board953x - Honey Bee 1.1DRAM:  
+sri
+Honey Bee 1.1
+ath_ddr_initial_config(198): (16bit) ddr2 init
+[WJ DEBUG] modify ddr2 config for gaoyi.
+tap = 0x00000003
+Tap (low, high) = (0x5, 0x38)
+Tap values = (0x1e, 0x1e, 0x1e, 0x1e)
+64 MB
+Top of RAM usable for U-Boot at: 84000000
+Reserving 224k for U-Boot at: 83fc4000
+Reserving 192k for malloc() at: 83f94000
+Reserving 44 Bytes for Board Info at: 83f93fd4
+Reserving 36 Bytes for Global Data at: 83f93fb0
+Reserving 128k for boot params() at: 83f73fb0
+Stack Pointer at: 83f73f98
+Now running in RAM - U-Boot at: 83fc4000
+Flash Manuf Id 0xc2, DeviceId0 0x20, DeviceId1 0x18
+flash size 16MB, sector count = 256
+Flash: 16 MB
+*** Warning *** : PCIe WLAN Module not found !!!
+In:    serial
+Out:   serial
+Err:   serial
+Net:   ath_gmac_enet_initialize...
+Fetching MAC Address from 0x83fe956c
+Fetching MAC Address from 0x83fe956c
+ath_gmac_enet_initialize: reset mask:c02200 
+Scorpion ---->S27 PHY*
+S27 reg init
+: cfg1 0x800c0000 cfg2 0x7114
+eth0: 00:03:7f:11:21:58
+athrs27_phy_setup ATHR_PHY_CONTROL 4 :1000
+athrs27_phy_setup ATHR_PHY_SPEC_STAUS 4 :10
+eth0 up
+Honey Bee ---->  MAC 1 S27 PHY *
+S27 reg init
+ATHRS27: resetting s27
+ATHRS27: s27 reset done
+: cfg1 0x800c0000 cfg2 0x7214
+eth1: 00:03:7f:11:21:59
+athrs27_phy_setup ATHR_PHY_CONTROL 0 :1000
+athrs27_phy_setup ATHR_PHY_SPEC_STAUS 0 :10
+athrs27_phy_setup ATHR_PHY_CONTROL 1 :1000
+athrs27_phy_setup ATHR_PHY_SPEC_STAUS 1 :10
+athrs27_phy_setup ATHR_PHY_CONTROL 2 :1000
+athrs27_phy_setup ATHR_PHY_SPEC_STAUS 2 :10
+athrs27_phy_setup ATHR_PHY_CONTROL 3 :1000
+athrs27_phy_setup ATHR_PHY_SPEC_STAUS 3 :10
+eth1 up
+eth0, eth1
+Setting 0x181162c0 to 0x2851a100
+### main_loop: bootcmd="bootm 0x9f050000"
+Hit any key to stop autoboot:  0 
+ath> 
+ath> print
+bootdelay=2
+baudrate=115200
+ethaddr=0x00:0xaa:0xbb:0xcc:0xdd:0xee
+dir=
+lu=tftp 0x80060000 ${dir}u-boot.bin&&erase 0x9f000000 +$filesize&&cp.b $fileaddr 0x9f000000 $filesize
+lf=tftp 0x80060000 ${dir}board953x${bc}-jffs2&&erase 0x9f050000 +0x630000&&cp.b $fileaddr 0x9f050000 $filesize
+lk=tftp 0x80060000 ${dir}vmlinux${bc}.lzma.uImage&&erase 0x9f680000 +$filesize&&cp.b $fileaddr 0x9f680000 $filesize
+bootimg=1
+bootargs=root=31:03
+upgradeok=
+jffs2_dis=1
+filesize=4c0004
+fileaddr=80060000
+ipaddr=192.168.1.1
+serverip=192.168.1.254
+bootcmd=bootm 0x9f050000
+stdin=serial
+stdout=serial
+stderr=serial
+ethact=eth0
+
+Environment size: 607/65532 bytes
+ath> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Fetching MAC Address from 0x83fe956c
+ath_gmac_enet_initialize: reset mask:c02200 
+Scorpion ---->S27 PHY*
+S27 reg init
+: cfg1 0x800c0000 cfg2 0x7114
+eth0: 00:03:7f:11:21:58
+athrs27_phy_setup ATHR_PHY_CONTROL 4 :1000
+athrs27_phy_setup ATHR_PHY_SPEC_STAUS 4 :10
+eth0 up
+Honey Bee ---->  MAC 1 S27 PHY *
+S27 reg init
+ATHRS27: resetting s27
+ATHRS27: s27 reset done
+: cfg1 0x800c0000 cfg2 0x7214
+eth1: 00:03:7f:11:21:59
+athrs27_phy_setup ATHR_PHY_CONTROL 0 :1000
+athrs27_phy_setup ATHR_PHY_SPEC_STAUS 0 :10
+athrs27_phy_setup ATHR_PHY_CONTROL 1 :1000
+athrs27_phy_setup ATHR_PHY_SPEC_STAUS 1 :10
+athrs27_phy_setup ATHR_PHY_CONTROL 2 :1000
+athrs27_phy_setup ATHR_PHY_SPEC_STAUS 2 :10
+athrs27_phy_setup ATHR_PHY_CONTROL 3 :1000
+athrs27_phy_setup ATHR_PHY_SPEC_STAUS 3 :10
+eth1 up
+eth0, eth1
+Setting 0x181162c0 to 0x2851a100
+### main_loop: bootcmd="bootm 0x9f050000"
+Hit any key to stop autoboot:  0 
+## Booting image at 9f050000 ...
+   Image Name:   lsdk10 VAP3051A 2.6.31
+   Created:      2017-10-11  17:24:03 UTC
+   Image Type:   MIPS Linux Kernel Image (lzma compressed)
+   Data Size:    6132321 Bytes =  5.8 MB
+   Load Address: 80002000
+   Entry Point:  80264360
+   Verifying Checksum at 0x9f050040 ...OK
+   Uncompressing Kernel Image ... OK
+No initrd
+## Transferring control to Linux (at address 80264360) ...
+## Giving linux memsize in bytes, 67108864
+
+Starting kernel ...
+
+Booting QCA953x
+[    0.000000] Linux version 2.6.31 (root@kvm.abloomy.com.cn) (gcc version 4.3.3 (GCC) ) #8110 Thu Oct 12 01:23:53 CST 2017
+[    0.000000] abloomy : not used bootarg as cmdline
+[    0.000000] flash_size passed from bootloader = 16
+[    0.000000] CPU revision is: 00019374 (MIPS 24Kc)
+[    0.000000] ath_sys_frequency: cpu apb ddr apb cpu 550 ddr 400 ahb 200
+[    0.000000] Determined physical RAM map:
+[    0.000000]  memory: 02000000 @ 00000000 (usable)
+[    0.000000] User-defined physical RAM map:
+[    0.000000]  memory: 04000000 @ 00000000 (usable)
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] Zone PFN ranges:
+[    0.000000]   Normal   0x00000000 -> 0x00004000
+[    0.000000] Movable zone start PFN for each node
+[    0.000000] early_node_map[1] active PFN ranges
+[    0.000000]     0: 0x00000000 -> 0x00004000
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 16256
+[    0.000000] Kernel command line: console=ttyS0,115200   mtdparts=ath-nor0:256k(u-boot),64k(u-boot-env),8192k(uImage),5760k(custom),2048k(nvram),64k(art)  mem=64M
+[    0.000000] PID hash table entries: 256 (order: 8, 1024 bytes)
+[    0.000000] Dentry cache hash table entries: 8192 (order: 3, 32768 bytes)
+[    0.000000] Inode-cache hash table entries: 4096 (order: 2, 16384 bytes)
+[    0.000000] Primary instruction cache 64kB, VIPT, 4-way, linesize 32 bytes.
+[    0.000000] Primary data cache 32kB, 4-way, VIPT, cache aliases, linesize 32 bytes
+[    0.000000] Writing ErrCtl register=00000000
+[    0.000000] Readback ErrCtl register=00000000
+[    0.000000] Memory: 50532k/65536k available (2458k kernel code, 14936k reserved, 678k data, 4964k init, 0k highmem)
+[    0.000000] NR_IRQS:128
+[    0.000000] plat_time_init: plat time init done
+[    0.000000] Calibrating delay loop... 365.56 BogoMIPS (lpj=731136)
+[    0.088000] Mount-cache hash table entries: 512
+[    0.088000] 
+[    0.088000] ****************ALLOC***********************
+[    0.088000]  Packet mem: 808020c0 (0x600000 bytes)
+[    0.088000] ********************************************
+[    0.088000] 
+[    0.088000] NET: Registered protocol family 16
+[    0.088000] ath_pcibios_init: bus 0
+[    0.088000] ***** Warning PCIe 0 H/W not found !!!
+[    0.088000] registering PCI controller with io_map_base unset
+[    0.088000] bio: create slab <bio-0> at 0
+[    0.088000] SCSI subsystem initialized
+[    0.092000] usbcore: registered new interface driver usbfs
+[    0.092000] usbcore: registered new interface driver hub
+[    0.092000] usbcore: registered new device driver usb
+[    0.092000] NET: Registered protocol family 2
+[    0.092000] IP route cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.092000] TCP established hash table entries: 2048 (order: 2, 16384 bytes)
+[    0.092000] TCP bind hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.092000] TCP: Hash tables configured (established 2048 bind 2048)
+[    0.092000] TCP reno registered
+[    0.092000] NET: Registered protocol family 1
+[    6.528000] ATH GPIOC major 0
+[    6.528000] JFFS2 version 2.2 (ZLIB) (RTIME) (c) 2001-2006 Red Hat, Inc.
+[    6.528000] fuse init (API version 7.12)
+[    6.528000] msgmni has been set to 98
+[    6.532000] alg: No test for stdrng (krng)
+[    6.532000] io scheduler noop registered
+[    6.532000] io scheduler deadline registered (default)
+[    6.532000] Serial: 8250/16550 driver, 1 ports, IRQ sharing disabled
+[    6.532000] serial8250.0: ttyS0 at MMIO 0xb8020000 (irq = 19) is a 16550A
+[    6.532000] console [ttyS0] enabled
+[    6.856000] brd: module loaded
+[    6.860000] PPP generic driver version 2.4.2
+[    6.864000] PPP Deflate Compression module registered
+[    6.868000] PPP BSD Compression module registered
+[    6.876000] PPP MPPE Compression module registered
+[    6.880000] NET: Registered protocol family 24
+[    6.884000] PPPoL2TP kernel driver, V1.0
+[    6.888000] SLIP: version 0.8.4-NET3.019-NEWTTY (dynamic channels, max=256) (6 bit encapsulation enabled).
+[    6.900000] CSLIP: code copyright 1989 Regents of the University of California.
+[    6.908000] SLIP linefill/keepalive option.
+[    6.912000] 6 cmdlinepart partitions found on MTD device ath-nor0
+[    6.916000] Creating 6 MTD partitions on "ath-nor0":
+[    6.924000] 0x000000000000-0x000000040000 : "u-boot"
+[    6.928000] 0x000000040000-0x000000050000 : "u-boot-env"
+[    6.932000] 0x000000050000-0x000000850000 : "uImage"
+[    6.940000] 0x000000850000-0x000000df0000 : "custom"
+[    6.944000] 0x000000df0000-0x000000ff0000 : "nvram"
+[    6.948000] 0x000000ff0000-0x000001000000 : "art"
+[    6.956000] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    6.960000] Port Status 1c000004 
+[    6.964000] ath-ehci ath-ehci.0: ATH EHCI
+[    6.968000] ath-ehci ath-ehci.0: new USB bus registered, assigned bus number 1
+[    6.980000] ehci_reset Intialize USB CONTROLLER in host mode: 13
+[    6.984000] ehci_reset Port Status 1c000000 
+[    6.988000] ath-ehci ath-ehci.0: irq 3, io mem 0x1b000000
+[    6.996000] ehci_reset Intialize USB CONTROLLER in host mode: 13
+[    7.004000] ehci_reset Port Status 1c000000 
+[    7.020000] ath-ehci ath-ehci.0: USB 2.0 started, EHCI 1.00
+[    7.024000] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002
+[    7.032000] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    7.040000] usb usb1: Product: ATH EHCI
+[    7.044000] usb usb1: Manufacturer: Linux 2.6.31 ehci_hcd
+[    7.048000] usb usb1: SerialNumber: platform
+[    7.052000] usb usb1: configuration #1 chosen from 1 choice
+[    7.060000] hub 1-0:1.0: USB hub found
+[    7.064000] hub 1-0:1.0: 1 port detected
+[    7.068000] Initializing USB Mass Storage driver...
+[    7.072000] usbcore: registered new interface driver usb-storage
+[    7.080000] USB Mass Storage support registered.
+[    7.084000] Netfilter messages via NETLINK v0.30.
+[    7.088000] nf_conntrack version 0.5.0 (1024 buckets, 4096 max)
+[    7.096000] CONFIG_NF_CT_ACCT is deprecated and will be removed soon. Please use
+[    7.100000] nf_conntrack.acct=1 kernel parameter, acct=1 nf_conntrack module option or
+[    7.112000] sysctl net.netfilter.nf_conntrack_acct=1 to enable it.
+[    7.116000] ip_tables: (C) 2000-2006 Netfilter Core Team
+[    7.124000] arp_tables: (C) 2002 David S. Miller
+[    7.128000] TCP cubic registered
+[    7.132000] NET: Registered protocol family 17
+[    7.136000] Bridge firewalling registered
+[    7.140000] 802.1Q VLAN Support v1.8 Ben Greear <greearb@candelatech.com>
+[    7.148000] All bugs added by David S. Miller <davem@redhat.com>
+[    7.152000] arch/mips/atheros/gpio.c (ath_simple_config_init) JUMPSTART_GPIO: 11
+[    7.160000] ath_simple_config_invoke_cb: sc 1, irq 0, ignorepb 1, jiffies 4294894086
+[    7.168000] athwdt_init: Registering WDT success
+[    7.224000] Freeing unused kernel memory: 4964k freed
+init started: BusyBox v1.15.0 (2017-10-12 01:18:33 CST)
+starting pid 27, tty '': '/etc/rc.d/rcS'
+dd config.tar form mtdblock4 ...
+1+0 records in
+1+0 records out
+tar: invalid gzip magic
+Can not recover config from nvram at *.tar mode!
+[    7.904000] qca955x_GMAC: AAA Length per segment 1536
+[    7.908000] Reading Flash for Calibraton data from 0x1002 and partition name is art
+[    7.916000] qca955x_GMAC: base mac -----60:cd:a9:00:49:af 
+[    7.924000] 953x_GMAC: qca953x_gmac_attach
+[    7.928000] Link Int Enabled 
+[    7.932000] qca953x_set_gmac_caps  CHECK DMA STATUS 
+[    7.936000] qca955x_GMAC: set_caps
+[    7.940000] qca955x_GMAC: phy_attach
+[    7.944000] mac:0 Registering S27....
+[    7.948000] qca955x_GMAC: phy_attach mac_unit:0
+[    7.952000] qca955x_GMAC: AAARX TASKLET - Pkts per Intr:18
+[    7.956000] qca955x_GMAC: Max segments per packet :   1
+[    7.964000] qca955x_GMAC: Max tx descriptor count :   511
+[    7.968000] qca955x_GMAC: Max rx descriptor count :   128
+[    7.976000] qca955x_GMAC: Mac capability flags    :   2581
+[    7.980000] 953x_GMAC: qca953x_gmac_attach
+[    7.984000] Link Int Enabled 
+[    7.988000] qca953x_set_gmac_caps  CHECK DMA STATUS 
+[    7.992000] qca955x_GMAC: set_caps
+[    7.996000] qca955x_GMAC: phy_attach
+[    8.000000] mac:1 Registering S27....
+[    8.004000] qca955x_GMAC: phy_attach mac_unit:1
+[    8.008000] qca955x_GMAC: AAARX TASKLET - Pkts per Intr:18
+[    8.016000] qca955x_GMAC: Max segments per packet :   1
+[    8.020000] qca955x_GMAC: Max tx descriptor count :   511
+[    8.024000] qca955x_GMAC: Max rx descriptor count :   128
+[    8.032000] qca955x_GMAC: Mac capability flags    :   2D81
+[    8.636000] ========== abloomy_init_gmac_thread: add abloomy_gmac_thread()... [NEW]
+[    8.644000] ========== abloomy_init_gmac_thread: kthread_run() success, pid 48
+[    8.656000] athr_gmac_ring_alloc Allocated 8176 at 0x82568000
+[    8.660000] athr_gmac_ring_alloc Allocated 2048 at 0x83859000
+[    8.968000] HONEYBEE ----> S27 PHY MDIO
+[    8.972000] Setting Drop CRC Errors, Pause Frames and Length Error frames 
+[    8.980000] Setting PHY...
+[   12.004000] athr_gmac_ring_alloc Allocated 8176 at 0x8257e000
+[   12.008000] athr_gmac_ring_alloc Allocated 2048 at 0x830a7800
+[   12.316000] HONEYBEE ----> S27 PHY MDIO
+[   12.320000] ATHRS27: resetting s27
+[   12.424000] ATHRS27: s27 reset done
+[   12.436000] Setting Drop CRC Errors, Pause Frames and Length Error frames 
+[   12.444000] Setting PHY...
+[   16.300000] device eth0 entered promiscuous mode
+brctl: invalid argument '0' to 'timespec'
+brctl: invalid argument '0' to 'timespec'
+SIFADDR: No such device
+SIFNETMASK: No such device
+SIOCGIFFLAGS: No such device
+Args: 1
+[   23.000000] adf: module license 'Proprietary' taints kernel.
+[   23.008000] Disabling lock debugging due to kernel taint
+[   23.152000] ath_hal: 0.9.17.1 (AR5416, AR9380, REGOPS_FUNC, WRITE_EEPROM, TX_DATA_SWAP, RX_DATA_SWAP, 11D)
+[   23.188000] ath_rate_atheros: Copyright (c) 2001-2005 Atheros Communications, Inc, All Rights Reserved
+insmod: can't insert '/lib/modules/2.6.31/net/ath_spectral.ko': No such file or directory
+insmod: can't insert '/lib/modules/2.6.31/net/ath_dfs.ko': No such file or directory
+insmod: can't insert '/lib/modules/2.6.31/net/hst_tx99.ko': No such file or directory
+[   23.324000] ath_dev: Copyright (c) 2001-2007 Atheros Communications, Inc, All Rights Reserved
+[   23.496000] ath_ahb: 10.2-00082-4 (Atheros/multi-bss)
+[   23.500000] ========== init_ath_wmac: devid = [0x3d].
+[   23.508000] __ath_attach: Set global_scn[0]
+[   23.520000] Enterprise mode: 0x03fc0000
+[   23.524000] ar9300_eeprom_restore_from_flash[4607]:Restoring Cal data from Flash
+[   23.532000] ar9300_eeprom_restore[4986]: wifi0 base mac [60:cd:a9: 0:49:af]
+[   23.540000] Green-AP : Green-AP : Attached
+[   23.540000] 
+[   23.552000] ath_get_caps[6153] rx chainmask mismatch actual 3 sc_chainmak 0
+[   23.560000] ath_get_caps[6128] tx chainmask mismatch actual 3 sc_chainmak 0
+[   23.580000] ========== lsdk-10.2 ========= [wifi0]: register device OK
+[   23.584000] SC Callback Registration for wifi0
+[   23.592000] ========== init_ath_wmac() wifi0: Atheros ???: mem=0xb8100000, irq=2
+[   23.596000] 
+[   23.596000] ========== ath_pci: 10.2-00082-4 (Atheros/multi-bss)
+[   23.604000] ========== init_ath_pci() init probe table ok !!!
+[   23.604000] 
+[   23.612000] ========== abloomy_init_umac: add abloomy_umac_thread()...
+[   23.620000] ========== abloomy_init_umac: kthread_run() success, pid 1347
+insmod: can't insert '/lib/modules/2.6.31/net/wlan_me.ko': No such file or directory
+Creating ap for Atheros_XSpan_2G on
+/etc/ath/makeVAP: line 182: wlanconfig: not found
+Added mode master
+bgscan    no private ioctls.
+
+Interface doesn't accept private ioctl...
+HALDbg (8BE0): Operation not permitted
+dbgLVL    no private ioctls.
+
+no_wradar  no private ioctls.
+
+shortgi   no private ioctls.
+
+noedgech  no private ioctls.
+
+mode      no private ioctls.
+
+Interface doesn't accept private ioctl...
+ForBiasAuto (8BE0): Operation not permitted
+vap_doth  no private ioctls.
+
+pureg     no private ioctls.
+
+puren     no private ioctls.
+
+pure11ac  no private ioctls.
+
+iwconfig: unknown command "Atheros_XSpan_2G"
+iwconfig: unknown command "Atheros_XSpan_2G"
+/etc/ath/makeVAP: line 475: can't create /proc/sys/dev/ath/htdupieenable: nonexistent directory
+ifconfig: allmulti: error fetching interface information: Device not found
+Invalid command : setVowExt
+Invalid command : setKeySrchAlways
+mcastenhance  no private ioctls.
+
+acparams  no private ioctls.
+
+Invalid command : set_vsp_enable
+Invalid command : setPhyRestartWar
+Invalid command : setVowExtStats
+Created mode ap for Atheros_XSpan_2G
+ath0      No such device
+
+lo        no wireless extensions.
+
+eth0      no wireless extensions.
+
+eth1      no wireless extensions.
+
+br-wan    no wireless extensions.
+
+br-lan    no wireless extensions.
+
+wifi0     no wireless extensions.
+
+VAP ath0 must be created first!! (use makeVAP)
+CHH: System Configuration
+AP_IPADDR:=192.168.1.2
+AP_NETMASK:=255.255.255.0
+WAN_MODE:=bridged
+WAN_IPADDR:=192.168.2.1
+WAN_NETMASK:=255.255.255.0
+WLAN_ON_BOOT:=n
+AP_STARTMODE:=standard
+AP_RADIO_ID:=0
+AP_RADIO_ID_2:=1
+AP_PRIMARY_CH:=6
+AP_CHMODE:=11NGHT20
+AP_HIDESSID:=0
+AP_PRIMARY_CH_2:=40
+AP_CHMODE_2:=11NAHT40MINUS
+PUREG:=0
+PUREN:=0
+PUREAC:=0
+TXQUEUELEN:=1000
+SHORTGI:=1
+SHORTGI_2:=1
+AMPDUENABLE:=1
+AMPDUENABLE_2:=1
+AMPDUFRAMES:=32
+AMPDUFRAMES_2:=32
+AMPDULIMIT:=50000
+AMPDULIMIT_2:=50000
+AMPDUMIN:=32768
+AMPDUMIN_2:=32768
+CWMMODE:=1
+CWMMODE_2:=1
+RATECTL:=auto
+MANRATE:=0x8c8c8c8c
+MANRETRIES:=0x04040404
+RX_CHAINMASK:=3
+RX_CHAINMASK_2:=3
+TX_CHAINMASK:=3
+TX_CHAINMASK_2:=3
+SWAP_LED:=1
+LED_CUSTOM:=3
+RANDOM_SSID:=0
+AP_SSID:=Atheros_XSpan_2G
+AP_MODE:=ap
+AP_MODE_2:=ap
+AP_MODE_3:=ap
+AP_MODE_4:=ap
+AP_MODE_5:=ap
+AP_MODE_6:=ap
+AP_MODE_7:=ap
+AP_MODE_8:=ap
+AP_MODE_9:=ap
+AP_MODE_10:=ap
+AP_MODE_11:=ap
+AP_MODE_12:=ap
+AP_MODE_13:=ap
+AP_MODE_14:=ap
+AP_MODE_15:=ap
+AP_MODE_16:=ap
+AP_SECMODE:=None
+AP_SECMODE_2:=None
+AP_SECMODE_3:=None
+AP_SECMODE_4:=None
+AP_SECMODE_5:=None
+AP_SECMODE_6:=None
+AP_SECMODE_7:=None
+AP_SECMODE_8:=None
+AP_SECMODE_9:=None
+AP_SECMODE_10:=None
+AP_SECMODE_11:=None
+AP_SECMODE_12:=None
+AP_SECMODE_13:=None
+AP_SECMODE_14:=None
+AP_SECMODE_15:=None
+AP_SECMODE_16:=None
+AP_PRIMARY_KEY_0:=1
+AP_PRIMARY_KEY_1:=1
+AP_WEP_MODE_0:=1
+AP_WEP_MODE_1:=1
+AP_SECFILE:=PSK
+WPS_ENABLE:=0
+AP_SECFILE_2:=PSK
+WPS_ENABLE_2:=0
+AP_SECFILE_3:=PSK
+WPS_ENABLE_3:=0
+AP_SECFILE_4:=PSK
+WPS_ENABLE_4:=0
+AP_SECFILE_5:=PSK
+WPS_ENABLE_5:=0
+AP_SECFILE_6:=PSK
+WPS_ENABLE_6:=0
+AP_SECFILE_7:=PSK
+WPS_ENABLE_7:=0
+AP_SECFILE_8:=PSK
+WPS_ENABLE_8:=0
+AP_SECFILE_9:=PSK
+WPS_ENABLE_9:=0
+AP_SECFILE_10:=PSK
+WPS_ENABLE_10:=0
+AP_SECFILE_11:=PSK
+WPS_ENABLE_11:=0
+AP_SECFILE_12:=PSK
+WPS_ENABLE_12:=0
+AP_SECFILE_13:=PSK
+WPS_ENABLE_13:=0
+AP_SECFILE_14:=PSK
+WPS_ENABLE_14:=0
+AP_SECFILE_15:=PSK
+WPS_ENABLE_15:=0
+AP_SECFILE_16:=PSK
+WPS_ENABLE_16:=0
+WEP_IS_HEX1:=0
+WEP_IS_HEX2:=0
+WEP_IS_HEX3:=0
+WEP_IS_HEX4:=0
+WEP_IS_HEX5:=0
+WEP_IS_HEX6:=0
+WEP_IS_HEX7:=0
+WEP_IS_HEX8:=0
+WEP_IS_HEX9:=0
+WEP_IS_HEX10:=0
+WEP_IS_HEX11:=0
+WEP_IS_HEX12:=0
+WEP_IS_HEX13:=0
+WEP_IS_HEX14:=0
+WEP_IS_HEX15:=0
+WEP_IS_HEX16:=0
+WPA_IS_HEX:=0
+WPA_IS_HEX_2:=0
+WPA_IS_HEX_3:=0
+WPA_IS_HEX_4:=0
+WPA_IS_HEX_5:=0
+WPA_IS_HEX_6:=0
+WPA_IS_HEX_7:=0
+WPA_IS_HEX_8:=0
+WPA_IS_HEX_9:=0
+WPA_IS_HEX_10:=0
+WPA_IS_HEX_11:=0
+WPA_IS_HEX_12:=0
+WPA_IS_HEX_13:=0
+WPA_IS_HEX_14:=0
+WPA_IS_HEX_15:=0
+WPA_IS_HEX_16:=0
+IEEE80211V_PROXYARP:=0
+DEF_ATH_countrycode:=841
+insmod: can't insert '/lib/modules/2.6.31/usb/usbcore.ko': No such file or directory
+insmod: can't insert '/lib/modules/2.6.31/usb/ehci-hcd.ko': No such file or directory
+insmod: can't insert '/lib/modules/2.6.31/usb/usb-storage.ko': No such file or directory
+insmod: can't insert '/lib/modules/2.6.31/usb/usbnet.ko': No such file or directory
+insmod: can't insert '/lib/modules/2.6.31/usb/cdc_ether.ko': No such file or directory
+athstats
+80211stats
+wlanconfig
+pktlogconf
+pktlogdump
+/etc/rc.d/rcS: line 83: can't create /proc/sys/vm/drop-caches: nonexistent directory
+Will output 1024 bit rsa secret key to '/etc/dropbear/dropbear_rsa_host_key'
+Generating key, this may take a while...
+Public key portion is:
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgnT2GBn/yr3UhGZPiSUpEJDCfOLRNuNhLQHebXYGRyNga+HhFegVGtbVpWXhi8sKygtj/bEFgu7GDItu2EagC+0rb2wr9SwIOJGyecQ1vrgKw4pfGKwGcbyVQDBwCsshmJ5RAMHsFRuRcOyPQEViFmwxsTFf7CzSwYRqeIn9Mef6CgU= root@(none)
+Fingerprint: md5 c4:11:ef:88:77:79:80:9e:89:8c:7e:68:15:dc:8f:0d
+1265650+0 records in
+1265650+0 records out
+system{
+/tmp/rundir/sbin/startwtp.sh: line 59: ldconfig: not found
+max client num is 0!
+[   35.764000] FPP - Proc Module Load ...
+[   35.772000] FPPOS - Debug Module Load ...
+[   35.816000] FPPOS - Main Module Load ...
+[   35.860000] FPPOS - Client Module malloc clients num 128!
+[   35.936000] FPPOS - IPV4 Module Load ...
+[   35.956000] FPPOS - 802.1xclient Module init success
+/tmp/rundir//sbin/startfpp.sh: line 24: /tmp/rundir/lib/modules/fpp_ap_arp.ko: not found
+rmmod: can't unload 'l2tp_ip': unknown symbol in module, or unknown parameter
+[   35.996000] L2TP core driver, V2.0
+[   36.016000] L2TP netlink interface
+[   36.040000] L2TP ethernet pseudowire support (L2TPv3)
+Bind socket success
+wlanconfig: ioctl: No such device
+wlanconfig: ioctl: No such device
+killall: dnsmasq: no process killed
+1970-01-01 00:00:37: (log.c.172) server started 
+sh: can't create /sys/module/athrs_gmac/parameters/phy_8033_mode: nonexistent directory
+fdisk: can't open '/dev/sda': No such device or address
+fdisk: can't open '/dev/sda': No such device or address
+[: : unknown operand
+mount: can't find /mnt in /etc/fstab
+mount: mounting /dev/sda on /mnt failed: No such device or address
+No disk cache
+[   46.728000] KMS register pid=9999, kfppd started
+[   46.740000]  <_1xclient_opt_set:645> KMS config usrname <>-passwd <>-port <eth0>-enable 0 --
+wlanconfig: ioctl: No such device
+wlanconfig: ioctl: No such device
+killall: hostapd: no process killed
+killall: hostapd: no process killed
+SIOCGIFFLAGS: No such device
+wlanconfig: ioctl: No such device
+SIOCGIFFLAGS: No such device
+wlanconfig: ioctl: No such device
+SIOCGIFFLAGS: No such device
+SIOCGIFFLAGS: No such device
+[   54.932000]  DCS for CW interference mitigation:   0
+[   54.932000]  DCS for WLAN interference mitigation: 0
+[   54.980000] VAP device ath2 created 
+[   55.032000] Set freq vap stop send + 82d20000
+[   55.036000] Set freq vap stop send -82d20000
+[   55.068000] Set wait done --82d20000
+[   55.072000]  
+[   55.072000]  DES SSID SET=abloomy_60:cd:a9:00:49:af 
+[   57.112000] Setting Max Stations:6
+[   57.204000] ath_vap_up: interface id 0
+[   57.208000] ath_vap_up: avp->av_opmode 6
+[   57.276000] ath_vap_up: interface id 0
+[   57.280000] ath_vap_up: avp->av_opmode 6
+[   57.288000] device eth1 entered promiscuous mode
+[   57.292000] device ath2 entered promiscuous mode
+[   57.296000] br-lan: port 2(ath2) entering learning state
+getaddrinfo: Name or service not known
+        [   72.304000] br-lan: port 2(ath2) entering forwarding state
+/tmp/rundir/sbin/startcdn.sh: line 80: /tmp/rundir/sbin/sbin/monitor_ap_status.sh: not found
+starting pid 31
+ abloomy mips #8110 Thu Oct 12 01:23:53 CST 2017 (none)
+abloomy login: Jan  1 00:01:39 crond[3199]: crond (busybox 1.15.0) started, log level 8
+
+cat: can't open '/tmp/csp.info': No such file or directory
+/tmp/rundir/sbin/third_party_start.sh: line 57: wtpconf: not found

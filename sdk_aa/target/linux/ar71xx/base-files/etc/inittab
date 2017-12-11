@@ -1,0 +1,6 @@
+::sysinit:/etc/init.d/rcS S boot
+::shutdown:/etc/init.d/rcS K shutdown
+ttyS0::askfirst:/bin/login
+
+# Guarantee that RFMGMT always execute
+#::respawn:/usr/bin/rfmgmt

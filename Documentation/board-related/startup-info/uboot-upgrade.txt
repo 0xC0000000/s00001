@@ -1,0 +1,41 @@
+lu=tftp 0x80060000 ${dir}u-boot.bin&&erase 0x9f000000 +$filesize&&cp.b $fileaddr 0x9f000000 $filesize
+lf=tftp 0x80060000 ${dir}board953x${bc}-jffs2&&erase 0x9f050000 +0x630000&&cp.b $fileaddr 0x9f050000 $filesize
+lk=tftp 0x80060000 ${dir}vmlinux${bc}.lzma.uImage&&erase 0x9f680000 +$filesize&&cp.b $fileaddr 0x9f680000 $filesize
+
+
+ap143_mtdlayout_16M=mtdparts=spi0.0:256k(u-boot)ro,64k(u-boot-env),6336k(rootfs),1408k(kernel),8192k(nouse),64k(board-config),64k(art),7744k@0x50000(firmware)
+
+set lf 'tftp 0x80060000 openwrt-ar71xx-generic-root.squashfs&&erase 0x9f050000 +0x630000&&cp.b $fileaddr 0x9f050000 $filesize'
+
+set bootargs 'console=ttyS0,115200 root=31:02 mtdparts=spi0.0:256k(u-boot)ro,64k(u-boot-env),6336k(rootfs),1408k(kernel),8192k(nouse),64k(board-config),64k(art),7744k@0x50000(firmware)'
+set bootargs 'console=ttyS0,115200 root=31:02 mtdparts=ath-nor0:256k(u-boot)ro,64k(u-boot-env),6336k(rootfs),1408k(kernel),8192k(nouse),64k(board-config),64k(art),7744k@0x50000(firmware)'
+
+set bootargs 'console=ttyS0,115200 mtdparts=ath-nor0:256k(u-boot)ro,64k(u-boot-env),6336k(rootfs),1408k(kernel),8192k(nouse),64k(board-config),64k(art),7744k@0x50000(firmware) root=31:02'
+
+ath> run lf
+Trying eth0
+eth0 link down
+FAIL
+Trying eth1
+enet1 port2 down
+eth1 link down
+FAIL
+Using eth0 device
+TFTP from server 192.168.1.254; our IP address is 192.168.1.1
+Filename 'board953x-jffs2'.
+Load address: 0x80060000
+Loading: Tx Timed out
+
+Abort
+ath> run lk
+Trying eth0
+eth0 link down
+FAIL
+Trying eth1
+eth1 link down
+FAIL
+Using eth0 device
+TFTP from server 192.168.1.254; our IP address is 192.168.1.1
+Filename 'vmlinux.lzma.uImage'.
+Load address: 0x80060000
+Loading: Tx Timed out
